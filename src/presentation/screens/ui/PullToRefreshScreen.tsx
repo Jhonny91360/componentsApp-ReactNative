@@ -1,12 +1,13 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {CustomView} from '../../components/ui/CustomView';
 import {Title} from '../../components/ui/Title';
 import {RefreshControl, ScrollView} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {colors} from '../../../config/theme/theme';
+import {ThemeContext} from '../../context/ThemeContext';
 
 export const PullToRefreshScreen = () => {
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const {colors} = useContext(ThemeContext);
 
   const onRefresh = () => {
     setIsRefreshing(true);
@@ -23,6 +24,7 @@ export const PullToRefreshScreen = () => {
           progressViewOffset={top}
           colors={[colors.primary, 'red', 'yellow']}
           onRefresh={onRefresh}
+          progressBackgroundColor={colors.cardBackground}
         />
       }>
       <CustomView>

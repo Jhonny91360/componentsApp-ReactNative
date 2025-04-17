@@ -1,13 +1,15 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {CustomView} from '../../components/ui/CustomView';
 import {Card} from '../../components/ui/Card';
 import {Switch} from 'react-native';
 import {CustomSwitch} from '../../components/ui/CustomSwitch';
 import {Separator} from '../../components/Separator';
+import {ThemeContext} from '../../context/ThemeContext';
 
 export const SwitchScreen = () => {
   // const [isEnabled, setIsEnabled] = useState(false);
   // const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const {colors} = useContext(ThemeContext);
 
   const [state, setState] = useState({
     isActive: true,

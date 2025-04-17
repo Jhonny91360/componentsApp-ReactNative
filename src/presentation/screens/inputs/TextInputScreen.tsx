@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {View, Text, TextInput, ScrollView} from 'react-native';
 import {CustomView} from '../../components/ui/CustomView';
 import {Title} from '../../components/ui/Title';
 import {Card} from '../../components/ui/Card';
 import {globalStyles} from '../../../config/theme/theme';
+import {ThemeContext} from '../../context/ThemeContext';
 
 export const TextInputScreen = () => {
   const [form, setForm] = useState({
@@ -11,6 +12,7 @@ export const TextInputScreen = () => {
     email: '',
     phone: '',
   });
+  const {colors} = useContext(ThemeContext);
 
   return (
     <ScrollView>
@@ -19,16 +21,26 @@ export const TextInputScreen = () => {
 
         <Card>
           <TextInput
-            style={globalStyles.input}
+            style={{
+              ...globalStyles.input,
+              color: colors.text,
+              borderColor: colors.text,
+            }}
             placeholder="Nombre completo"
+            placeholderTextColor={colors.text}
             autoCapitalize="words"
             autoCorrect={false}
             onChangeText={value => setForm({...form, name: value})}
           />
 
           <TextInput
-            style={globalStyles.input}
+            style={{
+              ...globalStyles.input,
+              color: colors.text,
+              borderColor: colors.text,
+            }}
             placeholder="Email"
+            placeholderTextColor={colors.text}
             autoCapitalize="none"
             autoCorrect={false}
             keyboardType="email-address"
@@ -36,8 +48,13 @@ export const TextInputScreen = () => {
           />
 
           <TextInput
-            style={globalStyles.input}
+            style={{
+              ...globalStyles.input,
+              color: colors.text,
+              borderColor: colors.text,
+            }}
             placeholder="Telefono"
+            placeholderTextColor={colors.text}
             autoCapitalize="none"
             autoCorrect={false}
             keyboardType="phone-pad"
