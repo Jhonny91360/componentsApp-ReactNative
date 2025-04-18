@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -8,10 +8,12 @@ import {
   NativeScrollEvent,
   NativeSyntheticEvent,
 } from 'react-native';
-import {colors, globalStyles} from '../../../config/theme/theme';
+import {globalStyles} from '../../../config/theme/theme';
 import {FlatList} from 'react-native-gesture-handler';
 import {Button} from '../../components/ui/Button';
 import {useNavigation} from '@react-navigation/native';
+import {CustomView} from '../../components/ui/CustomView';
+import {ThemeContext} from '../../context/ThemeContext';
 
 interface Slide {
   title: string;
@@ -41,6 +43,7 @@ export const SlidesScreen = () => {
   const [currenSlideIndex, setCurrenSlideIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
   const navigation = useNavigation();
+  const {colors} = useContext(ThemeContext);
 
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const slide = Math.ceil(
@@ -60,10 +63,10 @@ export const SlidesScreen = () => {
   };
 
   return (
-    <View
+    <CustomView
       style={{
         flex: 1,
-        backgroundColor: colors.background,
+        //backgroundColor: colors.background,
       }}>
       <FlatList
         ref={flatListRef}
@@ -74,6 +77,7 @@ export const SlidesScreen = () => {
         pagingEnabled
         scrollEnabled={false}
         onScroll={onScroll}
+        style={{backgroundColor: colors.background}}
       />
 
       {currenSlideIndex === items.length - 1 ? (
@@ -89,7 +93,7 @@ export const SlidesScreen = () => {
           onPress={() => scrollToSlide(currenSlideIndex + 1)}
         />
       )}
-    </View>
+    </CustomView>
   );
 };
 
@@ -100,8 +104,10 @@ interface SlideItemProps {
 const SlideItem = ({item}: SlideItemProps) => {
   const {width} = useWindowDimensions();
   const {title, img, desc} = item;
+  const {colors} = useContext(ThemeContext);
+
   return (
-    <View
+    <CustomView
       style={{
         flex: 1,
         backgroundColor: colors.background,
@@ -135,6 +141,6 @@ const SlideItem = ({item}: SlideItemProps) => {
         }}>
         {desc}
       </Text>
-    </View>
+    </CustomView>
   );
 };
